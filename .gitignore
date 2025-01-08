@@ -37,3 +37,5 @@ datasets/*.csv
 
 *.drawio.bkp
 *.drawio.dtmp
+
+python/venv
