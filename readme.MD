@@ -272,7 +272,7 @@ To make the deployment process easier, we have prepared a set of environment var
 ## DYNAMOS Configs
 
 # The directory where DYNAMOS repo is cloned
-export DYNAMOS_ROOT="${HOME}/DYNAMOS"
+export DYNAMOS_ROOT="${HOME}/repos/thesis/DYNAMOS"
 # Helm chart location for the core chart (used in multiple deployments)
 export coreChart="${DYNAMOS_ROOT}/charts/core"
 
