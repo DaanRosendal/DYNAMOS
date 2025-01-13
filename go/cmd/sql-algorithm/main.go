@@ -15,7 +15,7 @@ var (
 )
 
 func main() {
-	logger.Sugar().Debugf("Starting %s service", serviceName)
+	logger.Sugar().Debugf("Starting the majestic %s service", serviceName)
 
 	oce, err := lib.InitTracer(serviceName)
 	if err != nil {

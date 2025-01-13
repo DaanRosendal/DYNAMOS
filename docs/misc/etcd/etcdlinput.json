@@ -198,6 +198,14 @@
         ]
     },
     {
+        "name": "epfl",
+        "current_archetype": "Archetype1",
+        "allowed_partners": [
+            "unl1_agent",
+            "unl2_agent"
+        ]
+    },
+    {
         "value": "6ropoos3p3ljukzfv1xho4j55"
     }
 ]

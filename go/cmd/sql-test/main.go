@@ -48,6 +48,9 @@ var (
 	VU1 = &pb.DataProvider{
 		Archetypes: []string{"computeToData", "dataThroughTtp"},
 	}
+	EPFL1 = &pb.DataProvider{
+		Archetypes: []string{"computeToData", "dataThroughTtp"},
+	}
 
 	test1 = &pb.ValidationResponse{
 		Type:            "validationResponse",
@@ -55,23 +58,26 @@ var (
 		RequestApproved: true,
 		ValidArchetypes: &pb.UserArchetypes{
 			Archetypes: map[string]*pb.UserAllowedArchetypes{
-				"UVA": {Archetypes: []string{"computeToData", "dataThroughTtp"}},
-				"VU":  {Archetypes: []string{"computeToData", "dataThroughTtp"}},
+				"UVA":  {Archetypes: []string{"computeToData", "dataThroughTtp"}},
+				"VU":   {Archetypes: []string{"computeToData", "dataThroughTtp"}},
+				"EPFL": {Archetypes: []string{"computeToData", "dataThroughTtp"}},
 			}},
 		User: &pb.User{
 			Id:       "1234",
 			UserName: "jorrit.stutterheim@cloudnation.nl",
 		},
 		ValidDataproviders: map[string]*pb.DataProvider{
-			"UVA": UVA1,
-			"VU":  VU1,
+			"UVA":  UVA1,
+			"VU":   VU1,
+			"EPFL": EPFL1,
 		},
 		InvalidDataproviders: []string{},
 	}
 
 	agentDetails1 = map[string]lib.AgentDetails{
-		"UVA": {Name: "UVA", RoutingKey: "UVA-in", Dns: "uva.uva.svc.cluster.local"},
-		"VU":  {Name: "VU", RoutingKey: "VU-in", Dns: "vu.vu.svc.cluster.local"},
+		"UVA":  {Name: "UVA", RoutingKey: "UVA-in", Dns: "uva.uva.svc.cluster.local"},
+		"VU":   {Name: "VU", RoutingKey: "VU-in", Dns: "vu.vu.svc.cluster.local"},
+		"EPFL": {Name: "EPFL", RoutingKey: "EPFL-in", Dns: "epfl.epfl.svc.cluster.local"},
 	}
 )
 

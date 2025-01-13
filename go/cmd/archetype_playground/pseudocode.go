@@ -7,7 +7,7 @@ policyResult := PolicyResult{
 		ID:       "<GUID>",
 		UserName: "jstutterheim@uva.nl",
 	},
-	DataProviders:         ["VU", "UVA"],
+	DataProviders:         ["VU", "UVA", "EPFL"],
 	ComputeProvider:       "surf",
 	RequestType:           "sqlDataRequest",
 }

@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epfl
+  namespace: epfl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epfl
+  template:
+    metadata:
+      labels:
+        app: epfl
+      annotations:
+        "linkerd.io/inject" : enabled
+    spec:
+      serviceAccountName: job-creator-epfl
+      containers:
+      - name: epfl
+        image: {{ .Values.dockerArtifactAccount }}/agent:{{ .Values.branchNameTag }}
+        imagePullPolicy: Always
+        env:
+        - name: DATA_STEWARD_NAME
+          value: EPFL
+        - name: OC_AGENT_HOST
+          value: {{ .Values.tracingEndpoint }}
+      - name: sidecar
+        image: {{ .Values.dockerArtifactAccount }}/sidecar:{{ .Values.branchNameTag }}
+        imagePullPolicy: Always
+        env:
+        - name: AMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbit
+              key: password
+        - name: AMQ_USER
+          value: normal_user
+        - name: OC_AGENT_HOST
+          value: {{ .Values.tracingEndpoint }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: epfl
+  namespace: epfl
+spec:
+  selector:
+    app: epfl
+  ports:
+    - name: http-epfl-api
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epfl-ingress
+  namespace: epfl
+  annotations:
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: epfl.epfl.svc.cluster.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/agent/v1/sqlDataRequest/epfl"
+        backend:
+          service:
+            name: epfl
+            port:
+              number: 8080

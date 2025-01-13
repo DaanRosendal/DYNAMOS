@@ -50,7 +50,7 @@ func getRequestApproval() []byte {
 			"ID": "",
 			"userName": "jorrit.stutterheim@cloudnation.nl"
 		},
-		"dataProviders": ["VU","UVA","RUG"],
+		"dataProviders": ["VU","UVA","RUG","EPFL"],
 		"syncServices": true
 	}`
 
