@@ -1,5 +1,5 @@
 branch_name := $(shell git rev-parse --abbrev-ref HEAD)
-sql_microservices := sql-algorithm sql-anonymize sql-aggregate sql-test
+sql_microservices := sql-algorithm sql-anonymize sql-aggregate sql-test hello-world
 dynamos := sidecar policy-enforcer orchestrator agent api-gateway
 dockerhub_account := daanrosendal
 

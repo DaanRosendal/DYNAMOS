@@ -1,45 +1,38 @@
 [
-    {
-        "name": "sql-query",
-        "label": "dataProvider",
-        "allowedOutputs": [
-            "sql-aggregate",
-            "sql-algorithm",
-            "sql-anonymize"
-        ],
-        "invalidArchetypes": []
-    },
-    {
-        "name": "sql-anonymize",
-        "label": "dataProvider",
-        "allowedOutputs": [
-            "sql-aggregate",
-            "sql-algorithm"
-        ],
-        "invalidArchetypes": []
-    },
-    {
-        "name": "sql-algorithm",
-        "label": "computeProvider",
-        "allowedOutputs": [
-            "sql-graph"
-        ],
-        "invalidArchetypes": []
-    },
-    {
-        "name": "sql-graph",
-        "label": "computeProvider",
-        "allowedOutputs": [],
-        "invalidArchetypes": []
-    },
-    {
-        "name": "sql-aggregate",
-        "label": "computeProvider",
-        "allowedOutputs": [
-            "sql-algorithm"
-        ],
-        "invalidArchetypes": [
-            "computeToData"
-        ]
-    }
+  {
+    "name": "sql-query",
+    "label": "dataProvider",
+    "allowedOutputs": ["sql-aggregate", "sql-algorithm", "sql-anonymize"],
+    "invalidArchetypes": []
+  },
+  {
+    "name": "sql-anonymize",
+    "label": "dataProvider",
+    "allowedOutputs": ["sql-aggregate", "sql-algorithm"],
+    "invalidArchetypes": []
+  },
+  {
+    "name": "sql-algorithm",
+    "label": "computeProvider",
+    "allowedOutputs": ["sql-graph", "hello-world"],
+    "invalidArchetypes": []
+  },
+  {
+    "name": "hello-world",
+    "label": "computeProvider",
+    "allowedOutputs": [],
+    "invalidArchetypes": []
+  },
+  {
+    "name": "sql-graph",
+    "label": "computeProvider",
+    "allowedOutputs": [],
+    "invalidArchetypes": []
+  },
+  {
+    "name": "sql-aggregate",
+    "label": "computeProvider",
+    "allowedOutputs": ["sql-algorithm"],
+    "invalidArchetypes": ["computeToData"]
+  }
 ]

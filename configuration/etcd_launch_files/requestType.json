@@ -1,19 +1,16 @@
 [
-    {
-        "name": "sqlDataRequest",
-        "requiredServices": [
-            "sql-query",
-            "sql-algorithm"
-        ],
-        "optionalServices": {
-            "sql-anonymize": "anonymize",
-            "sql-graph": "graph",
-            "sql-aggregate": "aggregate"
-        }
-    },
-    {
-        "name": "genericRequest",
-        "requiredServices": [],
-        "optionalServices": {}
+  {
+    "name": "sqlDataRequest",
+    "requiredServices": ["sql-query", "sql-algorithm", "hello-world"],
+    "optionalServices": {
+      "sql-anonymize": "anonymize",
+      "sql-graph": "graph",
+      "sql-aggregate": "aggregate"
     }
+  },
+  {
+    "name": "genericRequest",
+    "requiredServices": [],
+    "optionalServices": {}
+  }
 ]
