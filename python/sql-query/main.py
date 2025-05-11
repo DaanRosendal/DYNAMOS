@@ -22,7 +22,7 @@ from opentelemetry.context.context import Context
 
 
 # --- DYNAMOS Interface code At the TOP ----------------------------------------------------
-if os.getenv('ENV') == 'PROD':
+if os.getenv("ENV") == "PROD":
     import config_prod as config
 else:
     import config_local as config
@@ -43,35 +43,36 @@ ms_config = None
 
 # --- END DYNAMOS Interface code At the TOP ----------------------------------------------------
 
-#---- LOCAL TEST SETUP OPTIONAL!
+# ---- LOCAL TEST SETUP OPTIONAL!
 
 # Go into local test code with flag '-t'
 parser = argparse.ArgumentParser()
-parser.add_argument("-t", "--test", action='store_true')
+parser.add_argument("-t", "--test", action="store_true")
 args = parser.parse_args()
 test = args.test
 
-#--------------------------------
+# --------------------------------
 
 
 def load_and_query_csv(file_path_prefix, query):
     # Extract table names from the query
-    table_names = re.findall(r'FROM (\w+)', query) + re.findall(r'JOIN (\w+)', query)
+    table_names = re.findall(r"FROM (\w+)", query) + re.findall(r"JOIN (\w+)", query)
     # Create a dictionary to hold DataFrames, keyed by table name
     dfs = {}
     DATA_STEWARD_NAME = os.getenv("DATA_STEWARD_NAME")
     if DATA_STEWARD_NAME == "":
         logger.error(f"DATA_STEWARD_NAME not set.")
 
-
     for table_name in table_names:
         try:
             file_name = f"{file_path_prefix}{table_name}_{DATA_STEWARD_NAME}.csv"
             logger.debug(f"Loading file {file_name}")
-            dfs[table_name] = pd.read_csv(file_name, delimiter=';')
+            dfs[table_name] = pd.read_csv(file_name, delimiter=";")
             logger.debug(f"after read csv")
         except FileNotFoundError:
-            logger.error(f"CSV file for table {table_name}_{DATA_STEWARD_NAME} not found.")
+            logger.error(
+                f"CSV file for table {table_name}_{DATA_STEWARD_NAME} not found."
+            )
             return None
 
     try:
@@ -87,7 +88,7 @@ def load_and_query_csv(file_path_prefix, query):
 
 def dataframe_to_protobuf(df):
     # Convert the DataFrame to a dictionary of lists (one for each column)
-    data_dict = df.to_dict(orient='list')
+    data_dict = df.to_dict(orient="list")
 
     # Convert the dictionary to a Struct
     data_struct = Struct()
@@ -114,6 +115,14 @@ def process_sql_data_request(sqlDataRequest, ctx):
     global config
     logger.debug("Start process_sql_data_request")
 
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
     try:
         result = load_and_query_csv(config.dataset_filepath, sqlDataRequest.query)
         logger.debug("after load and query csv")
@@ -130,7 +139,8 @@ def process_sql_data_request(sqlDataRequest, ctx):
 
 # ---  DYNAMOS Interface code At the Bottom -----------------------------------------------------
 
-def request_handler(msComm : msCommTypes.MicroserviceCommunication, ctx: Context):
+
+def request_handler(msComm: msCommTypes.MicroserviceCommunication, ctx: Context):
     global ms_config
     logger.info(f"Received original request type: {msComm.request_type}")
 
@@ -144,7 +154,7 @@ def request_handler(msComm : msCommTypes.MicroserviceCommunication, ctx: Context
 
             # with tracer.start_as_current_span("process_sql_data_request", context=ctx) as span1:
             data, metadata = process_sql_data_request(sqlDataRequest, ctx)
-                # span1.set_attribute("handleMsCommunication finished:", metadata)
+            # span1.set_attribute("handleMsCommunication finished:", metadata)
 
             logger.debug(f"Forwarding result, metadata: {metadata}")
             ms_config.next_client.ms_comm.send_data(msComm, data, metadata)
@@ -180,13 +190,12 @@ def main():
         print("KeyboardInterrupt received, stopping server...")
         signal_continuation(stop_event, stop_microservice_condition)
 
-
     ms_config.stop(2)
     logger.debug(f"Exiting {config.service_name}")
     sys.exit(0)
 
-# ---  END DYNAMOS Interface code At the Bottom -------------------------------------------------
 
+# ---  END DYNAMOS Interface code At the Bottom -------------------------------------------------
 
 
 if __name__ == "__main__":
